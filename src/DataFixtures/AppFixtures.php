@@ -7,9 +7,14 @@ use App\Entity\Event;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
+    public function __construct(
+        private UserPasswordHasherInterface $passwordHasher
+    ) {}
+
     public function load(ObjectManager $manager): void
     {
         $activtity1 = (New Activity())
@@ -19,7 +24,7 @@ class AppFixtures extends Fixture
             ->setEmail('name@mail.com')
             ->setFirstname('John')
             ->setLastname('Doe')
-            ->setPassword('$argon2id$v=19$m=65536,t=4,p=1$Z0Z6Z0Z6Z0Z')
+            ->setPassword($this->passwordHasher->hashPassword(New User(), 'test123'))
             ->addFavactivity($activtity1);
 
         $event = (new Event())
