@@ -34,7 +34,9 @@ security:
 
   access_control:
     - { path: ^/api/login, roles: PUBLIC_ACCESS }
-    - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
+    - { path: ^/api/activities, roles: PUBLIC_ACCESS }
+    - { path: ^/api/events, roles: PUBLIC_ACCESS }
+    - { path: ^/api/users, roles: ROLE_ADMIN }
 
       # activate different ways to authenticate
       # https://symfony.com/doc/current/security.html#the-firewall
