@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
+use Symfony\Component\HttpFoundation\Cookie;
 
 class UserController extends AbstractController
 {
@@ -46,17 +47,19 @@ class UserController extends AbstractController
         $token = $this->jwtManager->create($user);
 
         $this->userRepository->save($user);
+        // set-cookie BEARER as header and user without password as json response
+        $response = new Response();
+        $response->headers->setCookie(new Cookie('BEARER', $token));
+        $response->send();
 
         return $this->json([
-            //send user without password
             'user' => [
                 'id' => $user->getId(),
                 'email' => $user->getEmail(),
                 'firstname' => $user->getFirstname(),
                 'lastname' => $user->getLastname(),
                 'roles' => $user->getRoles()
-            ],
-            'token' => $token
+            ]
         ]);
     }
 
