@@ -50,9 +50,7 @@ class UserController extends AbstractController
         // set-cookie BEARER as header and user without password as json response
         $response = new Response();
         $response->headers->setCookie(new Cookie('BEARER', $token));
-        $response->send();
-
-        return $this->json([
+        $response->setContent(json_encode([
             'user' => [
                 'id' => $user->getId(),
                 'email' => $user->getEmail(),
@@ -60,7 +58,8 @@ class UserController extends AbstractController
                 'lastname' => $user->getLastname(),
                 'roles' => $user->getRoles()
             ]
-        ]);
+        ]));
+        return $response;
     }
 
     #[Route('/api/getUser', name: 'get_user', methods: ['GET'])]
