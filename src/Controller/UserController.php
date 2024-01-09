@@ -48,7 +48,14 @@ class UserController extends AbstractController
         $this->userRepository->save($user);
 
         return $this->json([
-            'user' => $user,
+            //send user without password
+            'user' => [
+                'id' => $user->getId(),
+                'email' => $user->getEmail(),
+                'firstname' => $user->getFirstname(),
+                'lastname' => $user->getLastname(),
+                'roles' => $user->getRoles()
+            ],
             'token' => $token
         ]);
     }
@@ -56,8 +63,20 @@ class UserController extends AbstractController
     #[Route('/api/getUser', name: 'get_user', methods: ['GET'])]
     public function getUserByToken(): Response
     {
+        /**
+         * @var User $user
+         */
         $user = $this->getUser();
 
-        return $this->json($user);
+        return $this->json([
+            //send user without password
+            'user' => [
+                'id' => $user->getId(),
+                'email' => $user->getEmail(),
+                'firstname' => $user->getFirstname(),
+                'lastname' => $user->getLastname(),
+                'roles' => $user->getRoles()
+            ]
+        ]);
     }
 }
