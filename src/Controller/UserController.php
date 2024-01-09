@@ -23,6 +23,7 @@ class UserController extends AbstractController
         $this->passwordEncoder = $passwordEncoder;
         $this->jwtManager = $jwtManager;
     }
+
     #[Route('/api/register', name: 'register', methods: ['POST'])]
     public function register(Request $request): Response
     {
@@ -50,5 +51,13 @@ class UserController extends AbstractController
             'user' => $user,
             'token' => $token
         ]);
+    }
+
+    #[Route('/api/getUser', name: 'get_user', methods: ['GET'])]
+    public function getUserByToken(): Response
+    {
+        $user = $this->getUser();
+
+        return $this->json($user);
     }
 }
