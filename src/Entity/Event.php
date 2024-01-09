@@ -60,6 +60,9 @@ class Event
     #[Groups(['event:read'])]
     private ?int $level = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $address = null;
+
     public function __construct()
     {
         $this->activities = new ArrayCollection();
@@ -187,6 +190,18 @@ class Event
     public function setLevel(int $level): static
     {
         $this->level = $level;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(string $address): static
+    {
+        $this->address = $address;
 
         return $this;
     }

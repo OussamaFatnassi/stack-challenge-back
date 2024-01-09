@@ -20,29 +20,28 @@ class EventRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Event::class);
     }
+    public function getAllEvents()
+    {
+        return $this->createQueryBuilder('e') // 'e' is an alias for 'Event'
+            ->getQuery() // Convert the query builder instance into a Query object
+            ->getResult(); // Execute the query and get the results
+    }
 
-//    /**
-//     * @return Event[] Returns an array of Event objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('e')
-//            ->andWhere('e.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('e.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function getEventByActivity($activity)
+    {
+        return $this->createQueryBuilder('e')
+            ->innerJoin('e.activities', 'a')
+            ->andWhere('a.id = :activity')
+            ->setParameter('activity', $activity)
+            ->getQuery()
+            ->getResult();
+    }
 
-//    public function findOneBySomeField($value): ?Event
-//    {
-//        return $this->createQueryBuilder('e')
-//            ->andWhere('e.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    public function getEventOrderByStartDate()
+    {
+        return $this->createQueryBuilder('e')
+            ->orderBy('e.startdate', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 }
