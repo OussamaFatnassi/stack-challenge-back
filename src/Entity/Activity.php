@@ -10,9 +10,21 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
+use ApiPlatform\Metadata\Put;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Post;
+
 
 #[ORM\Entity(repositoryClass: ActivityRepository::class)]
-#[ApiResource]
+#[
+    ApiResource(
+        operations: [
+            new Put(),
+            new Delete(),
+            new Post(),
+        ]
+    )
+]
 #[Get(
     normalizationContext: ['groups' => ['activity:read']],
 )]
