@@ -11,6 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use Symfony\Component\Serializer\Attribute\Groups;
+use ApiPlatform\Metadata\Post;
+
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
 #[ApiResource]
@@ -19,6 +21,9 @@ use Symfony\Component\Serializer\Attribute\Groups;
 )]
 #[GetCollection(
     normalizationContext: ['groups' => ['event:read']],
+)]
+#[Post(
+    denormalizationContext: ['groups' => ['event:write']],
 )]
 class Event
 {
@@ -29,38 +34,39 @@ class Event
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['event:read'])]
+    #[Groups(['event:read', 'event:write'])]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Groups(['event:read'])]
+    #[Groups(['event:read', 'event:write'])]
     private ?\DateTimeInterface $startdate = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Groups(['event:read'])]
+    #[Groups(['event:read', 'event:write'])]
     private ?\DateTimeInterface $enddate = null;
 
     #[ORM\ManyToMany(targetEntity: Activity::class, inversedBy: 'events')]
-    #[Groups(['event:read'])]
+    #[Groups(['event:read', 'event:write'])]
     private Collection $activities;
 
     #[ORM\ManyToOne(inversedBy: 'organisedevents')]
-    #[Groups(['event:read'])]
+    #[Groups(['event:read', 'event:write'])]
     private ?User $organiser = null;
 
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'events')]
-    #[Groups(['event:read'])]
+    #[Groups(['event:read', 'event:write'])]
     private Collection $participants;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['event:read'])]
+    #[Groups(['event:read', 'event:write'])]
     private ?string $image = null;
 
     #[ORM\Column]
-    #[Groups(['event:read'])]
+    #[Groups(['event:read', 'event:write'])]
     private ?int $level = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['event:read', 'event:write'])]
     private ?string $address = null;
 
     public function __construct()
