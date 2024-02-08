@@ -63,7 +63,7 @@ class Event
 
     #[ORM\Column]
     #[Groups(['event:read', 'event:write'])]
-    private ?string $level = null;
+    private ?int $level = null;
 
     #[ORM\Column(length: 255)]
     #[Groups(['event:read', 'event:write'])]
@@ -196,12 +196,12 @@ class Event
         return $this;
     }
 
-    public function getLevel(): ?string
+    public function getLevel(): ?int
     {
         return $this->level;
     }
 
-    public function setLevel(string $level): static
+    public function setLevel(int $level): static
     {
         $this->level = $level;
 
@@ -232,15 +232,4 @@ class Event
         return $this;
     }
 
-    public function getDuration(): ?int
-    {
-        return $this->duration;
-    }
-
-    public function setDuration(int $duration): static
-    {
-        $this->duration = $duration;
-
-        return $this;
-    }
 }

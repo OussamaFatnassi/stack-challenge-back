@@ -34,10 +34,10 @@ class AppFixtures extends Fixture
             ->setStartdate(new \DateTime('2024-09-24 12:00:00'))
             ->setEnddate(new \DateTime('2024-09-28 14:00:00'))
             ->setOrganiser($user1)
-            ->setLevel("intermédiaire")
+            ->setLevel(3)
             ->setAddress('Val thorens')
-            ->setMaxParticipants(12)
-            ->setDuration(2);
+            ->setMaxParticipants(12);
+
 
 
         $activtity1->addEvent($event);
