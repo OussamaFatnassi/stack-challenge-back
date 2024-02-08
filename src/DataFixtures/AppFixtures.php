@@ -19,22 +19,24 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $activtity1 = (new Activity())
-            ->setName('Football');
+            ->setName('SKI');
 
         $user1 = (new User())
-            ->setEmail('name@mail.com')
-            ->setFirstname('John')
-            ->setLastname('Doe')
+            ->setEmail('amine@mail.com')
+            ->setFirstname('User')
+            ->setLastname('Test')
+            ->setRoles(["ROLE_ADMIN"])
             ->setPassword($this->passwordHasher->hashPassword(new User(), 'test123'))
             ->addFavactivity($activtity1);
 
         $event = (new Event())
-            ->setName('Football match')
-            ->setStartdate(new \DateTime('2021-09-01 12:00:00'))
-            ->setEnddate(new \DateTime('2021-09-01 14:00:00'))
+            ->setName('Ski event')
+            ->setStartdate(new \DateTime('2024-09-24 12:00:00'))
+            ->setEnddate(new \DateTime('2024-09-28 14:00:00'))
             ->setOrganiser($user1)
-            ->setLevel(1)
-            ->setAddress('Rue de la paix 1, 1000 Bruxelles');
+            ->setLevel("intermédiaire")
+            ->setAddress('Val thorens')
+            ->setMaxParticipants(12);
 
         $activtity1->addEvent($event);
 

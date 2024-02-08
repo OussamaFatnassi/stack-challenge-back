@@ -63,11 +63,14 @@ class Event
 
     #[ORM\Column]
     #[Groups(['event:read', 'event:write'])]
-    private ?int $level = null;
+    private ?string $level = null;
 
     #[ORM\Column(length: 255)]
     #[Groups(['event:read', 'event:write'])]
     private ?string $address = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $maxParticipants = null;
 
     public function __construct()
     {
@@ -188,12 +191,12 @@ class Event
         return $this;
     }
 
-    public function getLevel(): ?int
+    public function getLevel(): ?string
     {
         return $this->level;
     }
 
-    public function setLevel(int $level): static
+    public function setLevel(string $level): static
     {
         $this->level = $level;
 
@@ -208,6 +211,18 @@ class Event
     public function setAddress(string $address): static
     {
         $this->address = $address;
+
+        return $this;
+    }
+
+    public function getMaxParticipants(): ?int
+    {
+        return $this->maxParticipants;
+    }
+
+    public function setMaxParticipants(?int $maxParticipants): static
+    {
+        $this->maxParticipants = $maxParticipants;
 
         return $this;
     }
