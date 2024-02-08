@@ -22,7 +22,7 @@ class AppFixtures extends Fixture
             ->setName('SKI');
 
         $user1 = (new User())
-            ->setEmail('amine@mail.com')
+            ->setEmail('test3@mail.com')
             ->setFirstname('User')
             ->setLastname('Test')
             ->setRoles(["ROLE_ADMIN"])
@@ -36,7 +36,9 @@ class AppFixtures extends Fixture
             ->setOrganiser($user1)
             ->setLevel("intermédiaire")
             ->setAddress('Val thorens')
-            ->setMaxParticipants(12);
+            ->setMaxParticipants(12)
+            ->setDuration(2);
+
 
         $activtity1->addEvent($event);
 

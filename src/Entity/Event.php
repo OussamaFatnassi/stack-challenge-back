@@ -72,6 +72,9 @@ class Event
     #[ORM\Column(nullable: true)]
     private ?int $maxParticipants = null;
 
+    #[ORM\Column]
+    private ?int $duration = null;
+
     public function __construct()
     {
         $this->activities = new ArrayCollection();
@@ -223,6 +226,18 @@ class Event
     public function setMaxParticipants(?int $maxParticipants): static
     {
         $this->maxParticipants = $maxParticipants;
+
+        return $this;
+    }
+
+    public function getDuration(): ?int
+    {
+        return $this->duration;
+    }
+
+    public function setDuration(int $duration): static
+    {
+        $this->duration = $duration;
 
         return $this;
     }
