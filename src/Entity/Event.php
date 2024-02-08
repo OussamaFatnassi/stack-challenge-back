@@ -70,9 +70,11 @@ class Event
     private ?string $address = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['event:read', 'event:write'])]
     private ?int $maxParticipants = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
+    #[Groups(['event:read', 'event:write'])]
     private ?int $duration = null;
 
     public function __construct()
